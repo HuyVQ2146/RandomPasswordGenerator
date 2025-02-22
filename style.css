@@ -1,0 +1,19 @@
+#container{
+    text-align: center;
+}
+#conditions{
+    text-align: left;
+}
+
+#res{
+    color: green;
+}
+
+#false{
+    color: red;
+}
+
+#btn{
+    cursor: pointer;
+}
+
