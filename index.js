@@ -1,35 +1,35 @@
-function submit(){
+function generatePass(length, lowercase, uppercase, num, sym){
+    const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numChars = "0123456789";
+    const symChars = "!@#$%^&*()_+=-[]{}|;:,.<>/?";
 
-    function generatePass(length, lowercase, uppercase, num, sym){
-        const lowerChars = "abcdefghijklmnopqrstuvwxyz";
-        const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const numChars = "0123456789";
-        const symChars = "!@#$%^&*()_+=-[]{}|;:,.<>/?";
+    let allowedChars = '';
+    let pass = '';
 
-        let allowedChars = '';
-        let pass = '';
+    allowedChars += lowercase ?  lowerChars : ''; 
+    allowedChars += uppercase ?  upperChars : '';
+    allowedChars += num ?  numChars : '';
+    allowedChars += sym ? symChars : '';
 
-        allowedChars += lowercase ?  lowerChars : ''; 
-        allowedChars += uppercase ?  upperChars : '';
-        allowedChars += num ?  numChars : '';
-        allowedChars += sym ? symChars : '';
-
-        if(length <= 0){
-            return [false, 'Password length must be greater than 0.'];
-        }
-        if (allowedChars.length === 0){
-            return [false, 'Aleast 1 set of characters needs to be selected.'];
-        }
-
-        for (let i = 0; i < length; i++){
-            const randomIdx = Math.floor(Math.random() * allowedChars.length);
-            pass += allowedChars[randomIdx];
-        }
-
-        return [true, pass];
+    if(length <= 0){
+        return [false, 'Password length must be greater than 0.'];
+    }
+    if (allowedChars.length === 0){
+        return [false, 'Aleast 1 set of characters needs to be selected.'];
     }
 
+    for (let i = 0; i < length; i++){
+        const randomIdx = Math.floor(Math.random() * allowedChars.length);
+        pass += allowedChars[randomIdx];
+    }
 
+    return [true, pass];
+}
+
+
+// có thể gọi func trong func cũng đc nma thế này đẹp hơn 
+function submit(callback){ // cách để gọi 1 func trong 1 func khác
 
     const passLen = document.getElementById('len').value;
     const includeLower = document.getElementById('lower').checked;
@@ -37,11 +37,12 @@ function submit(){
     const includeNum = document.getElementById('number').checked;
     const includeSymbols = document.getElementById('special').checked;
 
-    const pass = generatePass(passLen, 
+    // callback() là gọi func kia
+    const pass = callback(passLen, 
                             includeLower, 
                             includeUpper, 
                             includeNum, 
-                            includeSymbols);
+                            includeSymbols); 
 
     console.log(`Generated password: ${pass[1]}`);
     
