@@ -25,7 +25,7 @@ function generatePass(length, lowercase, uppercase, num, sym){
     }
 
     return [true, pass];
-}
+};
 
 
 // có thể gọi func trong func cũng đc nma thế này đẹp hơn 
@@ -62,4 +62,4 @@ function submit(callback){ // cách để gọi 1 func trong 1 func khác
     }
 
 
-}
+};
